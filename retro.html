@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A practical guide to making an old console setup feel new.">
+    <title>Make an old console setup feel new | Wesker 89</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink: #f2f4ed; --paper: #090c10; --muted: #9aa5ad; --line: #273039; --lime: #c9f36b; --coral: #ff715b; --violet: #c9b8ff; --panel: #131920; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; color: var(--ink); background: var(--paper); background-image: linear-gradient(rgba(47,70,82,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(47,70,82,.16) 1px, transparent 1px); background-size: 84px 62px; font-family: "Rajdhani", sans-serif; }
+        body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 80% 20%, rgba(103,78,151,.25), transparent 36%), linear-gradient(to bottom, transparent 28%, rgba(8,14,19,.3) 52%, #090c10 90%); }
+        a { color: inherit; text-decoration: none; }
+        .shell { width: min(1040px, calc(100% - 48px)); margin: auto; }
+        .mono { font-family: "Share Tech Mono", monospace; letter-spacing: .05em; text-transform: uppercase; font-size: .7rem; }
+        header { display: flex; align-items: center; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid var(--line); }
+        .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; }
+        .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; background: var(--ink); color: var(--violet); font-family: "Share Tech Mono", monospace; font-size: .78rem; }
+        nav { display: flex; gap: 28px; color: var(--muted); font-size: .9rem; }
+        nav a:hover { color: var(--ink); }
+        .article-head { display: grid; grid-template-columns: 1.35fr .65fr; gap: 40px; padding: 82px 0 64px; border-bottom: 1px solid var(--line); }
+        .eyebrow { color: var(--violet); }
+        h1, h2, h3 { font-family: "Share Tech Mono", monospace; letter-spacing: -.05em; }
+        h1 { max-width: 700px; margin: 18px 0 22px; font-size: clamp(3rem, 7vw, 6rem); line-height: .94; }
+        .lede { max-width: 590px; margin: 0; color: var(--muted); font-size: 1.15rem; line-height: 1.6; }
+        .status { align-self: end; padding: 25px; color: var(--paper); background: var(--violet); }
+        .status strong { display: block; margin-top: 12px; font: 1.9rem "Share Tech Mono", monospace; }
+        .content { display: grid; grid-template-columns: 1fr 290px; gap: 56px; padding: 62px 0 78px; }
+        h2 { margin: 0 0 18px; font-size: 2rem; }
+        h3 { margin: 0 0 9px; font-size: 1.2rem; }
+        .intro { color: var(--muted); line-height: 1.6; }
+        .steps { display: grid; gap: 1px; margin-top: 28px; background: var(--line); }
+        .step { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 22px; background: var(--panel); }
+        .step-number { color: var(--coral); font: 1.25rem "Share Tech Mono", monospace; }
+        .step p { margin: 0; color: var(--muted); line-height: 1.5; }
+        .side-panel { align-self: start; border-top: 3px solid var(--lime); padding-top: 18px; }
+        .side-panel h2 { font-size: 1.3rem; }
+        .checklist { margin: 0; padding: 0; list-style: none; }
+        .checklist li { padding: 13px 0 13px 25px; border-bottom: 1px solid var(--line); color: var(--muted); position: relative; }
+        .checklist li::before { content: "[ ]"; position: absolute; left: 0; color: var(--lime); font-family: "Share Tech Mono", monospace; }
+        .games-panel { margin-top: 52px; border-top: 3px solid var(--violet); padding-top: 18px; }
+        .games-panel h2 { font-size: 1.3rem; }
+        .game-list { margin: 0; padding: 0; list-style: none; }
+        .game-list li { display: flex; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); color: var(--ink); line-height: 1.25; }
+        .game-list span { color: var(--muted); font: .65rem "Share Tech Mono", monospace; white-space: nowrap; }
+        .signal { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); }
+        .ps2 { margin-top: 64px; padding: 28px; border-top: 3px solid var(--coral); background: var(--panel); }
+        .ps2 h2 { margin-bottom: 10px; }
+        .ps2-intro { margin: 0 0 24px; color: var(--muted); line-height: 1.6; }
+        .ps2-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); }
+        .ps2-step { padding: 18px; background: #0d1217; }
+        .ps2-step .mono { display: block; margin-bottom: 11px; color: var(--coral); }
+        .ps2-step p { margin: 0; color: var(--muted); line-height: 1.5; }
+        .ps2-note { margin: 22px 0 0; padding: 14px 16px; color: var(--paper); background: var(--lime); line-height: 1.45; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 15px 12px; border-bottom: 1px solid var(--line); }
+        th { color: var(--lime); font: .72rem "Share Tech Mono", monospace; text-transform: uppercase; }
+        td { color: var(--muted); }
+        td:first-child { color: var(--ink); }
+        .back { display: inline-block; margin: 0 0 45px; color: var(--lime); font: .72rem "Share Tech Mono", monospace; text-transform: uppercase; }
+        footer { padding: 25px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+        @media (max-width: 760px) { .shell { width: min(100% - 30px, 600px); } header { padding: 18px 0; } nav { gap: 14px; font-size: .8rem; } .article-head, .content { display: block; } .article-head { padding: 56px 0 45px; } h1 { font-size: clamp(3rem, 15vw, 5rem); } .status { margin-top: 35px; } .content { padding-top: 45px; } .side-panel { margin-top: 55px; } .signal { margin-top: 48px; overflow-x: auto; } table { min-width: 520px; } }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header><a class="brand" href="index.html"><span class="brand-mark">W89</span> WESKER 89</a><nav aria-label="Primary navigation"><a href="index.html#guides">Guides</a><a href="index.html#about">About</a></nav></header>
+        <main>
+            <section class="article-head"><div><div class="eyebrow mono">Retro gaming / Field guide 001</div><h1>Make an old console setup feel new.</h1><p class="lede">The best retro setup is the one that disappears into the game. Clean up the signal, remove the friction, and leave the nostalgia where it belongs: on screen.</p></div><div class="status"><span class="mono">Mission time</span><strong>10 min</strong><span class="mono">Difficulty / low risk</span></div></section>
+            <section class="content">
+                <div>
+                    <a class="back" href="index.html#guides">&lt;- Return to guide index</a>
+                    <h2>Restore the signal.</h2>
+                    <p class="intro">Work from the console outward. Change one thing at a time so you know which fix made the difference, and keep the original hardware in the chain until you have a reason to remove it.</p>
+                    <div class="steps">
+                        <article class="step"><span class="step-number">01</span><div><h3>Start with the display</h3><p>Set the television to its native game mode, disable motion smoothing, and check that the input is not forcing a stretched aspect ratio.</p></div></article>
+                        <article class="step"><span class="step-number">02</span><div><h3>Give the picture a clean path</h3><p>Use the shortest reliable cable chain. Reseat every connector, then test a second cable before blaming the console or the display.</p></div></article>
+                        <article class="step"><span class="step-number">03</span><div><h3>Make sound intentional</h3><p>Set the display and console to the same stereo expectation. If the signal is noisy, remove adapters one at a time until the hum disappears.</p></div></article>
+                        <article class="step"><span class="step-number">04</span><div><h3>Finish with the controller</h3><p>Clean the contacts, inspect the cable strain point, and test every button in a menu before starting a serious run.</p></div></article>
+                    </div>
+                    <div class="signal"><h2>Signal check</h2><table><thead><tr><th>Symptom</th><th>First move</th><th>Likely culprit</th></tr></thead><tbody><tr><td>Soft or stretched image</td><td>Check game mode</td><td>Display processing</td></tr><tr><td>Rolling picture</td><td>Reseat video cable</td><td>Loose connection</td></tr><tr><td>Audio hum</td><td>Remove one adapter</td><td>Ground loop</td></tr><tr><td>Missed button presses</td><td>Test another pad</td><td>Worn contacts</td></tr></tbody></table></div>
+                    <section class="ps2" id="ps2-online"><h2>PS2 online / establish a link.</h2><p class="ps2-intro">Online play on the PlayStation 2 is still possible, but the route depends on the game. Use original hardware with a network adapter or a compatible slim model, then choose a current community service supported by that title.</p><div class="ps2-grid"><article class="ps2-step"><span class="mono">01 / hardware</span><h3>Connect the console</h3><p>Plug Ethernet into the PS2 network adapter or slim console. A wired connection is the dependable starting point; avoid Wi-Fi bridges until the wired setup works.</p></article><article class="ps2-step"><span class="mono">02 / memory card</span><h3>Prepare the config</h3><p>Use the game's network setup utility or a trusted memory-card configuration method. Save a backup before changing an existing card.</p></article><article class="ps2-step"><span class="mono">03 / service</span><h3>Choose the route</h3><p>Official servers for most PS2 games have closed. Check the game's current community server documentation for its DNS, patch, or replacement service requirements.</p></article><article class="ps2-step"><span class="mono">04 / test</span><h3>Join a quiet room</h3><p>Launch the game, run its network test, and try a private match first. Confirm the lobby, latency, and save behavior before inviting a full party.</p></article></div><p class="ps2-note"><strong>Operator note:</strong> Never copy DNS values or game patches from an unverified source. Use the service's official documentation and return to automatic network settings when you are done.</p></section>
+                </div>
+                <aside class="side-panel"><h2>Before you play</h2><ul class="checklist"><li>Clean the cartridge edge</li><li>Check save battery age</li><li>Set the correct region</li><li>Keep a backup controller</li><li>Photograph cable layout</li></ul><section class="games-panel"><h2>PS2 online roster</h2><ul class="game-list"><li>EverQuest Online <span>MMO</span></li><li>MGS3 <span>STEALTH</span></li><li>.hack//Fragment <span>RPG</span></li><li>Need for Speed Underground 1 &amp; 2 <span>RACING</span></li><li>Star Wars Battlefront 1 &amp; 2 <span>ACTION</span></li><li>Resident Evil Outbreak File 1 &amp; 2 <span>CO-OP</span></li></ul></section></aside>
+            </section>
+        </main>
+        <footer><span class="mono">Wesker 89 / 2026</span> &nbsp; Signal clear. No gatekeeping.</footer>
+    </div>
+</body>
+</html>
