@@ -89,10 +89,14 @@
         .contact-link { padding: 11px 15px; color: var(--paper); background: var(--lime); font-family: "DM Mono", monospace; font-size: .7rem; text-transform: uppercase; }
         .contact-link:hover { background: var(--coral); }
         footer { padding: 25px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+        #matrix-rain { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; opacity: .25; pointer-events: none; }
         .labyrinth { position: fixed; top: 36%; left: -10%; z-index: 0; width: 120%; height: 92%; opacity: .62; pointer-events: none; transform: perspective(480px) rotateX(58deg); transform-origin: bottom center; background-image: linear-gradient(rgba(83,111,127,.82) 2px, transparent 2px), linear-gradient(90deg, rgba(83,111,127,.82) 2px, transparent 2px); background-size: 76px 56px; box-shadow: 0 -28px 55px rgba(49,89,111,.2); }
         .labyrinth::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 35px, rgba(9,12,16,.72) 35px 43px, transparent 43px 76px), repeating-linear-gradient(0deg, transparent 0 23px, rgba(9,12,16,.72) 23px 31px, transparent 31px 56px); opacity: .85; }
         .labyrinth::after { content: ""; position: absolute; left: 25%; right: 25%; top: -10%; height: 14px; background: #557b90; opacity: .32; box-shadow: 0 0 38px 16px rgba(48,86,108,.24); }
-        @media (prefers-reduced-motion: reduce) { .labyrinth { transform: perspective(480px) rotateX(58deg); } }
+        @media (prefers-reduced-motion: reduce) {
+            #matrix-rain { display: none; }
+            .labyrinth { transform: perspective(480px) rotateX(58deg); }
+        }
         @media (max-width: 760px) {
             .shell { width: min(100% - 30px, 600px); }
             header { padding: 18px 0; } nav { gap: 14px; font-size: .8rem; }
@@ -108,10 +112,10 @@
     </style>
 </head>
 <body>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
     <div class="labyrinth" aria-hidden="true"></div>
     <div class="shell">
         <header>
-            <a class="brand" href="index.html"><span class="brand-mark">W89</span> WESKER 89</a>
             <nav aria-label="Primary navigation"><a href="#guides">Guides</a><a href="#about">About</a></nav>
         </header>
 
@@ -151,9 +155,44 @@
             </section>
         </main>
         <section class="contact" id="contact" aria-label="Contact information"><p><span class="mono">Need an operator?</span><br>Open a channel on Discord or call for support.</p><div><a class="contact-link" href="https://discord.gg/3WkhaqcVc" target="_blank" rel="noopener noreferrer">Open Discord -></a> <a class="contact-link" href="tel:+15878000300">Call +1 587 800 0300</a></div></section>
-        <footer><span class="mono">Wesker 89 / 2026</span> &nbsp; Signal clear. No gatekeeping. <audio src="Hellraiser.mp3" autoplay loop controls preload="auto" aria-label="Background music"></audio></footer>
+        <footer>Signal clear. No gatekeeping. <audio src="Hellraiser.mp3" autoplay loop controls preload="auto" aria-label="Background music"></audio></footer>
     </div>
     <script>
+        const matrixCanvas = document.querySelector('#matrix-rain');
+        const matrixContext = matrixCanvas.getContext('2d');
+        const matrixCharacters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+        let matrixDrops = [];
+        let matrixFrame;
+
+        function resizeMatrix() {
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            matrixCanvas.width = window.innerWidth * pixelRatio;
+            matrixCanvas.height = window.innerHeight * pixelRatio;
+            matrixContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            matrixDrops = Array.from({ length: Math.ceil(window.innerWidth / 24) }, () => Math.random() * -window.innerHeight / 20);
+        }
+
+        function drawMatrix() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            matrixContext.fillStyle = 'rgba(9, 12, 16, .12)';
+            matrixContext.fillRect(0, 0, width, height);
+            matrixContext.font = '14px "Share Tech Mono", monospace';
+            matrixDrops.forEach((drop, column) => {
+                const character = matrixCharacters[Math.floor(Math.random() * matrixCharacters.length)];
+                const x = column * 24;
+                const y = drop * 20;
+                matrixContext.fillStyle = column % 7 === 0 ? '#c9f36b' : '#4d9b52';
+                matrixContext.fillText(character, x, y);
+                matrixDrops[column] = y > height && Math.random() > .975 ? -Math.random() * 12 : drop + .45;
+            });
+            matrixFrame = requestAnimationFrame(drawMatrix);
+        }
+
+        resizeMatrix();
+        window.addEventListener('resize', resizeMatrix);
+        drawMatrix();
+
         const cards = [...document.querySelectorAll('.guide-card')];
         const filters = [...document.querySelectorAll('.filter')];
         const search = document.querySelector('#search');
