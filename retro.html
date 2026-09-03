@@ -9,25 +9,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --ink: #f2f4ed; --paper: #090c10; --muted: #9aa5ad; --line: #273039; --lime: #c9f36b; --coral: #ff715b; --violet: #c9b8ff; --panel: #131920; }
+        :root { --ink: #d7ffd2; --paper: #090c10; --muted: #8bcf88; --line: #1d5a2c; --lime: #c9f36b; --matrix-bright: #a8ff9f; --matrix-green: #4d9b52; --coral: #ff715b; --blue: #b8dcff; --white: #131920; --panel: #131920; }
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; color: var(--ink); background: var(--paper); background-image: linear-gradient(rgba(47,70,82,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(47,70,82,.16) 1px, transparent 1px); background-size: 84px 62px; font-family: "Rajdhani", sans-serif; }
-        body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 80% 20%, rgba(103,78,151,.25), transparent 36%), linear-gradient(to bottom, transparent 28%, rgba(8,14,19,.3) 52%, #090c10 90%); }
+        body { margin: 0; color: var(--ink); background: var(--paper); background-image: linear-gradient(rgba(47,70,82,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(47,70,82,.16) 1px, transparent 1px); background-size: 84px 62px; font-family: "Rajdhani", sans-serif; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 30%, rgba(41,75,96,.23), transparent 42%), linear-gradient(to bottom, transparent 28%, rgba(8,14,19,.3) 52%, #090c10 90%); }
         a { color: inherit; text-decoration: none; }
-        .shell { width: min(1040px, calc(100% - 48px)); margin: auto; }
+        .shell { position: relative; z-index: 1; width: min(1180px, calc(100% - 48px)); margin: auto; }
         .mono { font-family: "Share Tech Mono", monospace; letter-spacing: .05em; text-transform: uppercase; font-size: .7rem; }
         header { display: flex; align-items: center; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid var(--line); }
         .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; }
-        .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; background: var(--ink); color: var(--violet); font-family: "Share Tech Mono", monospace; font-size: .78rem; }
+        .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; background: var(--ink); color: var(--lime); font-family: "Share Tech Mono", monospace; font-size: .78rem; }
         nav { display: flex; gap: 28px; color: var(--muted); font-size: .9rem; }
         nav a:hover { color: var(--ink); }
         .article-head { display: grid; grid-template-columns: 1.35fr .65fr; gap: 40px; padding: 82px 0 64px; border-bottom: 1px solid var(--line); }
-        .eyebrow { color: var(--violet); }
+        .eyebrow { color: #7dff75; font-weight: 600; }
         h1, h2, h3 { font-family: "Share Tech Mono", monospace; letter-spacing: -.05em; }
         h1 { max-width: 700px; margin: 18px 0 22px; font-size: clamp(3rem, 7vw, 6rem); line-height: .94; }
         .lede { max-width: 590px; margin: 0; color: var(--muted); font-size: 1.15rem; line-height: 1.6; }
-        .status { align-self: end; padding: 25px; color: var(--paper); background: var(--violet); }
+        .status { align-self: end; padding: 25px; color: #062b0d; background: var(--lime); }
         .status strong { display: block; margin-top: 12px; font: 1.9rem "Share Tech Mono", monospace; }
         .content { display: grid; grid-template-columns: 1fr 290px; gap: 56px; padding: 62px 0 78px; }
         h2 { margin: 0 0 18px; font-size: 2rem; }
@@ -42,7 +42,7 @@
         .checklist { margin: 0; padding: 0; list-style: none; }
         .checklist li { padding: 13px 0 13px 25px; border-bottom: 1px solid var(--line); color: var(--muted); position: relative; }
         .checklist li::before { content: "[ ]"; position: absolute; left: 0; color: var(--lime); font-family: "Share Tech Mono", monospace; }
-        .games-panel { margin-top: 52px; border-top: 3px solid var(--violet); padding-top: 18px; }
+        .games-panel { margin-top: 52px; border-top: 3px solid var(--matrix-bright); padding-top: 18px; }
         .games-panel h2 { font-size: 1.3rem; }
         .game-list { margin: 0; padding: 0; list-style: none; }
         .game-list li { display: flex; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); color: var(--ink); line-height: 1.25; }
@@ -63,10 +63,17 @@
         td:first-child { color: var(--ink); }
         .back { display: inline-block; margin: 0 0 45px; color: var(--lime); font: .72rem "Share Tech Mono", monospace; text-transform: uppercase; }
         footer { padding: 25px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+        #matrix-rain { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; opacity: .25; pointer-events: none; }
+        .labyrinth { position: fixed; top: 36%; left: -10%; z-index: 0; width: 120%; height: 92%; opacity: .62; pointer-events: none; transform: perspective(480px) rotateX(58deg); transform-origin: bottom center; background-image: linear-gradient(rgba(83,111,127,.82) 2px, transparent 2px), linear-gradient(90deg, rgba(83,111,127,.82) 2px, transparent 2px); background-size: 76px 56px; box-shadow: 0 -28px 55px rgba(49,89,111,.2); }
+        .labyrinth::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 35px, rgba(9,12,16,.72) 35px 43px, transparent 43px 76px), repeating-linear-gradient(0deg, transparent 0 23px, rgba(9,12,16,.72) 23px 31px, transparent 31px 56px); opacity: .85; }
+        .labyrinth::after { content: ""; position: absolute; left: 25%; right: 25%; top: -10%; height: 14px; background: #557b90; opacity: .32; box-shadow: 0 0 38px 16px rgba(48,86,108,.24); }
+        @media (prefers-reduced-motion: reduce) { #matrix-rain { display: none; } .labyrinth { transform: perspective(480px) rotateX(58deg); } }
         @media (max-width: 760px) { .shell { width: min(100% - 30px, 600px); } header { padding: 18px 0; } nav { gap: 14px; font-size: .8rem; } .article-head, .content { display: block; } .article-head { padding: 56px 0 45px; } h1 { font-size: clamp(3rem, 15vw, 5rem); } .status { margin-top: 35px; } .content { padding-top: 45px; } .side-panel { margin-top: 55px; } .signal { margin-top: 48px; overflow-x: auto; } table { min-width: 520px; } }
     </style>
 </head>
 <body>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+    <div class="labyrinth" aria-hidden="true"></div>
     <div class="shell">
         <header><nav aria-label="Primary navigation"><a href="index.html#guides">Guides</a><a href="index.html#about">About</a></nav></header>
         <main>
@@ -90,5 +97,40 @@
         </main>
         <footer>Signal clear. No gatekeeping.</footer>
     </div>
+    <script>
+        const matrixCanvas = document.querySelector('#matrix-rain');
+        const matrixContext = matrixCanvas.getContext('2d');
+        const matrixCharacters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+        let matrixDrops = [];
+
+        function resizeMatrix() {
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            matrixCanvas.width = window.innerWidth * pixelRatio;
+            matrixCanvas.height = window.innerHeight * pixelRatio;
+            matrixContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            matrixDrops = Array.from({ length: Math.ceil(window.innerWidth / 24) }, () => Math.random() * -window.innerHeight / 20);
+        }
+
+        function drawMatrix() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            matrixContext.fillStyle = 'rgba(9, 12, 16, .12)';
+            matrixContext.fillRect(0, 0, width, height);
+            matrixContext.font = '14px "Share Tech Mono", monospace';
+            matrixDrops.forEach((drop, column) => {
+                const character = matrixCharacters[Math.floor(Math.random() * matrixCharacters.length)];
+                const x = column * 24;
+                const y = drop * 20;
+                matrixContext.fillStyle = column % 7 === 0 ? '#c9f36b' : '#4d9b52';
+                matrixContext.fillText(character, x, y);
+                matrixDrops[column] = y > height && Math.random() > .975 ? -Math.random() * 12 : drop + .45;
+            });
+            requestAnimationFrame(drawMatrix);
+        }
+
+        resizeMatrix();
+        window.addEventListener('resize', resizeMatrix);
+        drawMatrix();
+    </script>
 </body>
 </html>
