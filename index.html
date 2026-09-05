@@ -77,6 +77,8 @@
         .guide-card { display: flex; min-height: 230px; flex-direction: column; justify-content: space-between; padding: 22px; border: 1px solid var(--line); background: transparent; text-shadow: 0 1px 8px #06150a; transition: transform .2s, box-shadow .2s; }
         .guide-card:hover { transform: translateY(-4px); box-shadow: 5px 5px 0 var(--matrix-bright); }
         .guide-card.hidden { display: none; }
+        .retro-rail { display: grid; grid-template-columns: 1fr 350px; gap: 14px; align-items: start; }
+        .retro-rail .guide-card { height: 100%; }
         .guide-top { display: flex; justify-content: space-between; color: var(--muted); }
         .guide-card h3 { margin: 25px 0 8px; font-size: 1.25rem; line-height: 1.1; letter-spacing: -.03em; }
         .guide-card p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.45; }
@@ -87,6 +89,9 @@
         .contact p { margin: 0; color: var(--muted); }
         .contact-link { padding: 11px 15px; color: #062b0d; background: var(--lime); font-family: "DM Mono", monospace; font-size: .7rem; text-transform: uppercase; }
         .contact-link:hover { background: var(--matrix-bright); }
+        .discord-wrap { display: flex; justify-content: center; padding: 10px 0 18px; }
+        .discord-box { background: rgba(16, 19, 26, 0.9); }
+        .discord-box iframe { display: block; width: min(380px, 100%); max-width: 100%; border: 0; }
         footer { padding: 25px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
         #matrix-rain { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; opacity: .25; pointer-events: none; }
         .labyrinth { position: fixed; top: 36%; left: -10%; z-index: 0; width: 120%; height: 92%; opacity: .62; pointer-events: none; transform: perspective(480px) rotateX(58deg); transform-origin: bottom center; background-image: linear-gradient(rgba(83,111,127,.82) 2px, transparent 2px), linear-gradient(90deg, rgba(83,111,127,.82) 2px, transparent 2px); background-size: 76px 56px; box-shadow: 0 -28px 55px rgba(49,89,111,.2); }
@@ -140,15 +145,22 @@
                     <div class="feature-steps"><div><span class="step-no">01</span> Trace the signal</div><div><span class="step-no">02</span> Rewrite the route</div><div><span class="step-no">03</span> Confirm access</div></div>
                 </article>
 
-                <div class="guide-grid" id="guide-grid">
-                    <article class="guide-card" data-category="it" data-title="build a clean pc help desk checklist"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">04 min</span></div><h3>Build a clean PC help desk checklist</h3><p>Capture the details that turn a vague ticket into a fast fix.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="it" data-title="make your passwords less painful"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">07 min</span></div><h3>Make your passwords less painful</h3><p>A simple setup for a password manager, passkeys, and recovery.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="gaming" data-title="reduce input lag without buying gear"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">06 min</span></div><h3>Reduce input lag without buying gear</h3><p>Settings worth changing before you blame the controller.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="gaming" data-title="a better first hour in survival games"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">09 min</span></div><h3>A better first hour in survival games</h3><p>Priorities, storage, and the early mistakes you can skip.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="it" data-title="when your pc suddenly runs hot"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">05 min</span></div><h3>When your PC suddenly runs hot</h3><p>Find the noisy process, clear the airflow, and watch the trend.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="gaming" data-title="choose graphics settings that matter"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">08 min</span></div><h3>Choose graphics settings that matter</h3><p>Sharper frames without turning every game into a science project.</p></div><span class="read">Read guide -></span></article>
-                    <article class="guide-card" data-category="linux" data-title="your first linux terminal toolkit"><div><div class="guide-top"><span class="mono linux">Linux</span><span class="mono">08 min</span></div><h3>Your first Linux terminal toolkit</h3><p>The commands worth learning before you start customizing everything.</p></div><span class="read">Read guide -></span></article>
-                    <a class="guide-card" data-category="retro" data-title="make an old console setup feel new" href="retro.html"><div><div class="guide-top"><span class="mono retro">Retro gaming</span><span class="mono">10 min</span></div><h3>Make an old console setup feel new</h3><p>Picture, sound, and controller fixes for a cleaner throwback session.</p></div><span class="read">Read guide -></span></a>
+                <div class="retro-rail">
+                    <div class="guide-grid" id="guide-grid">
+                        <article class="guide-card" data-category="it" data-title="build a clean pc help desk checklist"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">04 min</span></div><h3>Build a clean PC help desk checklist</h3><p>Capture the details that turn a vague ticket into a fast fix.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="it" data-title="make your passwords less painful"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">07 min</span></div><h3>Make your passwords less painful</h3><p>A simple setup for a password manager, passkeys, and recovery.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="gaming" data-title="reduce input lag without buying gear"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">06 min</span></div><h3>Reduce input lag without buying gear</h3><p>Settings worth changing before you blame the controller.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="gaming" data-title="a better first hour in survival games"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">09 min</span></div><h3>A better first hour in survival games</h3><p>Priorities, storage, and the early mistakes you can skip.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="it" data-title="when your pc suddenly runs hot"><div><div class="guide-top"><span class="mono it">IT support</span><span class="mono">05 min</span></div><h3>When your PC suddenly runs hot</h3><p>Find the noisy process, clear the airflow, and watch the trend.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="gaming" data-title="choose graphics settings that matter"><div><div class="guide-top"><span class="mono gaming">Gaming</span><span class="mono">08 min</span></div><h3>Choose graphics settings that matter</h3><p>Sharper frames without turning every game into a science project.</p></div><span class="read">Read guide -></span></article>
+                        <article class="guide-card" data-category="linux" data-title="your first linux terminal toolkit"><div><div class="guide-top"><span class="mono linux">Linux</span><span class="mono">08 min</span></div><h3>Your first Linux terminal toolkit</h3><p>The commands worth learning before you start customizing everything.</p></div><span class="read">Read guide -></span></article>
+                        <a class="guide-card" data-category="retro" data-title="make an old console setup feel new" href="retro.html"><div><div class="guide-top"><span class="mono retro">Retro gaming</span><span class="mono">10 min</span></div><h3>Make an old console setup feel new</h3><p>Picture, sound, and controller fixes for a cleaner throwback session.</p></div><span class="read">Read guide -></span></a>
+                    </div>
+                    <div class="discord-wrap">
+                        <div class="discord-box">
+                            <iframe src="https://discord.com/widget?id=1206847943634583562&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                        </div>
+                    </div>
                 </div>
                 <p class="empty" id="empty">No guides match that search. Try a broader phrase.</p>
             </section>
